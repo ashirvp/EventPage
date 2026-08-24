@@ -7,10 +7,12 @@ export function NewInvite({
   label,
   showSelect = true,
   className = "cta",
+  flat = false,
 }: {
   label: string;
   showSelect?: boolean;
   className?: string;
+  flat?: boolean;
 }) {
   const [locale, setLocale] = useState<Locale>("en");
   const [busy, setBusy] = useState(false);
@@ -34,12 +36,11 @@ export function NewInvite({
     }
   }
 
-  return (
-    <div className="row">
+  const content = (
+    <>
       {showSelect && (
         <select
           className="select"
-          style={{ width: "auto" }}
           value={locale}
           onChange={(e) => setLocale(e.target.value as Locale)}
         >
@@ -53,7 +54,10 @@ export function NewInvite({
       <button className={className} onClick={create} disabled={busy}>
         {busy ? "Starting…" : label}
       </button>
-    </div>
+    </>
   );
+
+  if (flat) return content;
+  return <div className="row">{content}</div>;
 }
 

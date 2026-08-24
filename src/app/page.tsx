@@ -23,10 +23,10 @@ export default function Landing() {
             breathtaking digital invitation in English, German or Turkish — ready to send in one link.
           </p>
 
-          <div className="row" style={{ marginTop: "2.2rem" }}>
-            <NewInvite label="Start an invitation" />
+          <div className="hero-actions-row">
+            <NewInvite label="Start invitation" flat />
             <a className="cta cta-ghost" href="/amir-leyla">
-              See live example →
+              Example →
             </a>
           </div>
         </div>
