@@ -6,26 +6,55 @@ import { NewInvite } from "@/components/builder/NewInvite";
 export default function Landing() {
   return (
     <main className="page">
-      <div className="hero-badge">
-        ✨ Digital Wedding Invitations
-      </div>
+      <div className="hero-grid">
+        <div>
+          <div className="hero-badge">
+            ✨ Digital Wedding Invitations
+          </div>
 
-      <h1>
-        Wedding invitations,
-        <br />
-        <span className="gilt-animated">crafted with elegance.</span>
-      </h1>
+          <h1>
+            Wedding invitations,
+            <br />
+            <span className="gilt-animated">crafted with elegance.</span>
+          </h1>
 
-      <p className="lede" style={{ fontSize: "1.15rem", lineHeight: "1.7" }}>
-        Enter your names, your events and your verses. {PRODUCT_NAME} renders a
-        breathtaking digital invitation in English, German or Turkish — ready to send in one link.
-      </p>
+          <p className="lede" style={{ fontSize: "1.15rem", lineHeight: "1.7" }}>
+            Enter your names, your events and your verses. {PRODUCT_NAME} renders a
+            breathtaking digital invitation in English, German or Turkish — ready to send in one link.
+          </p>
 
-      <div className="row" style={{ marginTop: "2.2rem" }}>
-        <NewInvite label="Start an invitation" />
-        <a className="cta cta-ghost" href="/amir-leyla">
-          See live example →
-        </a>
+          <div className="row" style={{ marginTop: "2.2rem" }}>
+            <NewInvite label="Start an invitation" />
+            <a className="cta cta-ghost" href="/amir-leyla">
+              See live example →
+            </a>
+          </div>
+        </div>
+
+        {/* Animated Digital Card Mockup on Right Side */}
+        <div className="hero-card-preview">
+          <span className="hero-card-tag">Live Card Mockup</span>
+          <p className="eyebrow" style={{ fontSize: ".7rem", letterSpacing: ".2em", marginTop: ".6rem" }}>
+            The Wedding Of
+          </p>
+          <h2 className="display gilt-animated" style={{ fontSize: "2.2rem", marginBlock: ".4rem" }}>
+            Amir &amp; Leyla
+          </h2>
+          <div style={{ color: "var(--app-accent)", marginBlock: ".6rem", fontSize: "1.1rem" }}>
+            ❖ ❖ ❖
+          </div>
+          <p style={{ fontSize: ".95rem", fontWeight: 500 }}>Saturday, October 24, 2026</p>
+          <p className="note" style={{ marginTop: ".25rem" }}>Nikah &amp; Reception · Berlin, Germany</p>
+
+          <div style={{ marginTop: "1.4rem", display: "flex", gap: ".5rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
+              ✓ Instant RSVP
+            </span>
+            <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
+              💬 Wishes Wall
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Moving Marquee Ticker Banner */}

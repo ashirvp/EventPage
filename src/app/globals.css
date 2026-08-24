@@ -391,6 +391,62 @@ body.app {
 .input[aria-invalid="true"] { border-color: #b3261e; }
 
 /* ------------------------------------------------ Cinematic Landing Page --- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 54rem) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.hero-card-preview {
+  position: relative;
+  background: var(--app-surface);
+  border: 1px solid var(--app-line);
+  border-radius: 16px;
+  padding: 2.2rem 1.8rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  overflow: hidden;
+  animation: floatHeroCard 7s ease-in-out infinite alternate;
+}
+
+@keyframes floatHeroCard {
+  0% { transform: translateY(0) rotate(0deg); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
+  50% { transform: translateY(-10px) rotate(1deg); box-shadow: 0 25px 50px rgba(184, 150, 71, 0.18); }
+  100% { transform: translateY(5px) rotate(-0.5deg); box-shadow: 0 18px 40px rgba(0,0,0,0.08); }
+}
+
+.hero-card-preview::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--app-accent), #EFE5CD, var(--app-accent));
+}
+
+.hero-card-tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--app-accent) 15%, transparent);
+  color: var(--app-accent);
+  border: 1px solid color-mix(in srgb, var(--app-accent) 30%, transparent);
+  border-radius: 999px;
+  padding: .2rem .55rem;
+  font-weight: 500;
+}
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
