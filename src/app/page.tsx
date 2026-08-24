@@ -18,30 +18,17 @@ export default function Landing() {
           ✨ Digital Wedding Invitations
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: ".4rem" }}>
-          <span className="note" style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".06em" }}>Language:</span>
-          <select
-            className="select"
-            style={{
-              width: "auto",
-              padding: ".2rem .6rem",
-              fontSize: ".8rem",
-              borderRadius: "999px",
-              minHeight: "34px",
-              height: "34px",
-              borderColor: "var(--app-line)",
-              background: "var(--app-surface)",
-              cursor: "pointer",
-            }}
-            value={selectedLocale}
-            onChange={(e) => setSelectedLocale(e.target.value as Locale)}
-          >
-            {LOCALES.map((l) => (
-              <option key={l} value={l}>
-                {LOCALE_NAMES[l]}
-              </option>
-            ))}
-          </select>
+        <div className="landing-lang-switcher" aria-label="Select language">
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              type="button"
+              className={`lang-btn ${selectedLocale === l ? "is-active" : ""}`}
+              onClick={() => setSelectedLocale(l)}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
         </div>
       </div>
 
