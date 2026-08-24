@@ -13,7 +13,7 @@ export default function Landing() {
       <h1>
         Wedding invitations,
         <br />
-        <span className="gilt">crafted with elegance.</span>
+        <span className="gilt-animated">crafted with elegance.</span>
       </h1>
 
       <p className="lede" style={{ fontSize: "1.15rem", lineHeight: "1.7" }}>
@@ -26,6 +26,22 @@ export default function Landing() {
         <a className="cta cta-ghost" href="/amir-leyla">
           See live example →
         </a>
+      </div>
+
+      {/* Moving Marquee Ticker Banner */}
+      <div className="marquee-container">
+        <div className="marquee-content">
+          <div className="marquee-item">✨ Nikah &amp; Walima Presets</div>
+          <div className="marquee-item">❖ 8 Artisan Styles</div>
+          <div className="marquee-item">🌐 English • Deutsch • Türkçe</div>
+          <div className="marquee-item">💌 Instant RSVPs &amp; Wishes</div>
+          <div className="marquee-item">⚡ Zero Developer Needed</div>
+          <div className="marquee-item">✨ Nikah &amp; Walima Presets</div>
+          <div className="marquee-item">❖ 8 Artisan Styles</div>
+          <div className="marquee-item">🌐 English • Deutsch • Türkçe</div>
+          <div className="marquee-item">💌 Instant RSVPs &amp; Wishes</div>
+          <div className="marquee-item">⚡ Zero Developer Needed</div>
+        </div>
       </div>
 
       {!SUPABASE_CONFIGURED && (

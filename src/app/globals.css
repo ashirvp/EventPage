@@ -407,6 +407,34 @@ body.app {
   margin-bottom: 1.25rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  animation: floatBadge 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatBadge {
+  0% { transform: translateY(0); box-shadow: 0 0 10px rgba(184, 150, 71, 0.15); }
+  100% { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(184, 150, 71, 0.35); }
+}
+
+.gilt-animated {
+  background: linear-gradient(
+    110deg,
+    var(--app-accent) 0%,
+    #FFFDF7 30%,
+    var(--app-accent) 50%,
+    #FFFDF7 70%,
+    var(--app-accent) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: giltShimmer 5s linear infinite;
+}
+
+@keyframes giltShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 .glass-panel {
@@ -420,9 +448,13 @@ body.app {
 }
 
 .glass-panel:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.08);
   border-color: var(--app-accent);
+}
+
+.glass-panel:hover .feature-icon {
+  transform: scale(1.15) rotate(8deg);
 }
 
 .features-grid {
@@ -433,27 +465,72 @@ body.app {
 }
 
 .feature-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background: color-mix(in srgb, var(--app-accent) 15%, transparent);
   color: var(--app-accent);
   display: grid;
   place-items: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
+  transition: transform .3s ease;
 }
 
 .showcase-card {
   border: 1px solid var(--app-line);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: transform .25s ease, box-shadow .25s ease;
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .showcase-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+}
+
+/* Moving Infinite Marquee Ticker */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-block: 4rem 1rem;
+  border-block: 1px solid var(--app-line);
+  padding-block: .85rem;
+  background: color-mix(in srgb, var(--app-surface) 50%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 3rem;
+  animation: marqueeScroll 22s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--app-accent);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Floating interactive mock phone preview */
+.floating-preview {
+  animation: floatPhone 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatPhone {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(0.6deg); }
+  100% { transform: translateY(4px) rotate(-0.6deg); }
 }
 
 /* Language switcher pill on invitation page */
