@@ -4,6 +4,7 @@ import { currentOwner } from "@/lib/auth";
 import { messages } from "@/lib/i18n";
 import { ExportCsv } from "@/components/builder/RsvpTable";
 import { WishModeration } from "@/components/builder/WishModeration";
+import { BackButton } from "@/components/BackButton";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export default async function RsvpsPage({
 
   return (
     <main className="page">
-      <a className="b-back" href="/dashboard">← {m.b.dashboard}</a>
+      <BackButton fallback="/dashboard" label={`← ${m.b.dashboard}`} />
       <h1 style={{ marginTop: ".5rem" }}>{m.b.responses}</h1>
       <p className="lede">
         {totals.yes} · {totals.no} · {totals.guests} {m.rsvp.guests.toLowerCase()}

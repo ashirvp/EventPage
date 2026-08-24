@@ -1,10 +1,14 @@
 import { SUPABASE_CONFIGURED } from "@/lib/db";
 import { LoginForm } from "@/components/LoginForm";
 import { PRODUCT_NAME } from "@/lib/config";
+import { BackButton } from "@/components/BackButton";
 
 export default function LoginPage() {
   return (
     <main className="page">
+      <div style={{ marginBottom: "1rem" }}>
+        <BackButton fallback="/" label="← Home" />
+      </div>
       <h1>{PRODUCT_NAME}</h1>
       {SUPABASE_CONFIGURED ? (
         <>

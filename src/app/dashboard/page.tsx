@@ -3,6 +3,7 @@ import { store } from "@/lib/db";
 import { currentOwner } from "@/lib/auth";
 import { messages } from "@/lib/i18n";
 import { NewInvite } from "@/components/builder/NewInvite";
+import { BackButton } from "@/components/BackButton";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,9 @@ export default async function Dashboard() {
 
   return (
     <main className="page">
+      <div style={{ marginBottom: "1rem" }}>
+        <BackButton fallback="/" label="← Home" />
+      </div>
       <div className="row" style={{ justifyContent: "space-between" }}>
         <h1>{m.b.dashboard}</h1>
         <NewInvite label={m.b.newInvite} />

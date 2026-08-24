@@ -11,6 +11,7 @@ import { isSlugAvailableShape } from "@/lib/slug";
 import { isFamilyNameLinked, setPartnerName } from "@/lib/linked";
 import { LOCALES, OPENER_IDS, TRADITIONS } from "@/lib/types";
 import type { Invite, Locale, OpenerId, SectionKey, ThemeId, Tradition } from "@/lib/types";
+import { BackButton } from "@/components/BackButton";
 
 const TIMEZONES = [
   "Europe/Berlin", "Europe/Istanbul", "Europe/London", "Europe/Amsterdam",
@@ -122,7 +123,7 @@ export function Builder({ initial, siteUrl }: { initial: Invite; siteUrl: string
     <div className="builder">
       <div className="b-form">
         <header className="b-topbar">
-          <a className="b-back" href="/dashboard">← {m.b.dashboard}</a>
+          <BackButton fallback="/dashboard" label={`← ${m.b.dashboard}`} />
           <span className="b-save">{saving ? `${m.b.saving}…` : m.b.saved}</span>
         </header>
 

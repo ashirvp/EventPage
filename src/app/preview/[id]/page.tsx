@@ -5,6 +5,7 @@ import { currentOwner } from "@/lib/auth";
 import { Invite } from "@/components/invite/Invite";
 import { formatShortDate } from "@/lib/datetime";
 import { PRODUCT_NAME } from "@/lib/config";
+import { BackButton } from "@/components/BackButton";
 
 export async function generateMetadata({
   params,
@@ -37,5 +38,24 @@ export default async function PreviewPage({
   const invite = await (await store()).getInvite(id, owner);
   if (!invite) notFound();
 
-  return <Invite invite={invite} live={false} />;
+  return (
+    <div style={{ position: "relative" }}>
+      <div
+        style={{
+          position: "fixed",
+          top: "1rem",
+          left: "1rem",
+          zIndex: 99,
+          background: "var(--app-surface, #fff)",
+          border: "1px solid var(--app-line, #ccc)",
+          borderRadius: "999px",
+          padding: ".4rem 1rem",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        }}
+      >
+        <BackButton fallback={`/edit/${id}`} label="← Edit Invitation" />
+      </div>
+      <Invite invite={invite} live={false} />
+    </div>
+  );
 }
