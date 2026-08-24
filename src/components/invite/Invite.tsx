@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { THEMES, themeVars } from "@/lib/themes";
 import { messages, HTML_LANG } from "@/lib/i18n";
 import { eventName } from "@/lib/presets";
 import { VERSES_BY_KEY, BISMILLAH } from "@/lib/verses";
 import { formatEventDate, formatEventTime, formatShortDate } from "@/lib/datetime";
-import type { Invite as InviteData, Wish } from "@/lib/types";
+import { LOCALES, type Invite as InviteData, type Locale, type Wish } from "@/lib/types";
 import { Ornament, Rule } from "./Ornament";
 import { Reveal } from "./Reveal";
 import { Countdown } from "./Countdown";
@@ -22,8 +22,14 @@ export type InviteProps = {
 };
 
 export function Invite({ invite, wishes = [], live = true, scoped = false }: InviteProps) {
+  const [currentLocale, setCurrentLocale] = useState<Locale>(invite.locale);
   const theme = THEMES[invite.theme] ?? THEMES["ivory-gold"];
-  const m = messages(invite.locale);
+
+  useEffect(() => {
+    setCurrentLocale(invite.locale);
+  }, [invite.locale]);
+
+  const m = messages(currentLocale);
   const [opened, setOpened] = useState(invite.opener === "direct");
 
   const tz = invite.timezone;
@@ -33,16 +39,30 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
   return (
     <div
       className={`invite surface-${theme.surface} ${scoped ? "preview-scope" : ""}`}
-      lang={HTML_LANG[invite.locale]}
+      lang={HTML_LANG[currentLocale]}
       style={themeVars(theme) as React.CSSProperties}
     >
+      {/* Floating Language Switcher Bar */}
+      <div className="lang-switcher" aria-label="Select language">
+        {LOCALES.map((l) => (
+          <button
+            key={l}
+            type="button"
+            className={`lang-btn ${currentLocale === l ? "is-active" : ""}`}
+            onClick={() => setCurrentLocale(l)}
+          >
+            {l.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
       <div className="invite-body">
       {!opened ? (
         <Opener
           opener={invite.opener}
           theme={theme}
           names={names}
-          dateLabel={primary ? formatEventDate(primary.startsAt, invite.locale, tz) : undefined}
+          dateLabel={primary ? formatEventDate(primary.startsAt, currentLocale, tz) : undefined}
           m={m}
           onOpen={() => setOpened(true)}
         />
@@ -58,7 +78,7 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
               {primary && (
                 <>
                   <p style={{ letterSpacing: ".05em" }}>
-                    {formatEventDate(primary.startsAt, invite.locale, tz)}
+                    {formatEventDate(primary.startsAt, currentLocale, tz)}
                   </p>
                   <p className="eyebrow" style={{ marginTop: ".35rem" }}>{primary.venueAddress}</p>
                   <div style={{ marginTop: "2rem" }}>
@@ -86,8 +106,8 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
                     {invite.verses.map((v) => {
                       const lib = v.libraryKey ? VERSES_BY_KEY.get(v.libraryKey) : undefined;
                       const original = v.customArabic ?? lib?.original ?? "";
-                      const text = v.customText ?? lib?.text[invite.locale] ?? "";
-                      const ref = v.customRef ?? lib?.ref[invite.locale] ?? "";
+                      const text = v.customText ?? lib?.text[currentLocale] ?? "";
+                      const ref = v.customRef ?? lib?.ref[currentLocale] ?? "";
                       const rtl = invite.tradition === "islamic";
                       return (
                         <blockquote className="card" key={v.id}>
@@ -139,14 +159,14 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
                     {invite.events.map((e) => (
                       <article className="card center" key={e.id}>
                         <p className="display" style={{ fontSize: "1.5rem" }}>
-                          {eventName(e.presetKey, e.customName, invite.locale)}
+                          {eventName(e.presetKey, e.customName, currentLocale)}
                         </p>
                         <p style={{ marginTop: ".5rem" }}>{e.venueName}</p>
                         <p className="note">{e.venueAddress}</p>
                         <div className="rule" aria-hidden="true"><Ornament id={theme.ornament} size={16} /></div>
-                        <p style={{ fontSize: ".95rem" }}>{formatEventDate(e.startsAt, invite.locale, tz)}</p>
+                        <p style={{ fontSize: ".95rem" }}>{formatEventDate(e.startsAt, currentLocale, tz)}</p>
                         <p style={{ fontSize: ".95rem" }}>
-                          {formatEventTime(e.startsAt, invite.locale, tz)}{e.note ? ` — ${e.note}` : ""}
+                          {formatEventTime(e.startsAt, currentLocale, tz)}{e.note ? ` — ${e.note}` : ""}
                         </p>
                         {e.mapsUrl && (
                           <p style={{ marginTop: "1rem" }}>
@@ -176,7 +196,7 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
                       live={live}
                       deadlineLabel={
                         invite.rsvpDeadline
-                          ? formatShortDate(`${invite.rsvpDeadline}T12:00:00.000Z`, invite.locale, tz)
+                          ? formatShortDate(`${invite.rsvpDeadline}T12:00:00.000Z`, currentLocale, tz)
                           : null
                       }
                     />
@@ -234,7 +254,7 @@ export function Invite({ invite, wishes = [], live = true, scoped = false }: Inv
               </p>
               {primary && (
                 <p className="eyebrow" style={{ marginTop: ".4rem" }}>
-                  {formatShortDate(primary.startsAt, invite.locale, tz)}
+                  {formatShortDate(primary.startsAt, currentLocale, tz)}
                 </p>
               )}
               <p className="note" style={{ marginTop: "1rem" }}>{m.footer.withLove}</p>

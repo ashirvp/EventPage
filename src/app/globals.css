@@ -456,6 +456,45 @@ body.app {
   box-shadow: 0 14px 28px rgba(0,0,0,0.08);
 }
 
+/* Language switcher pill on invitation page */
+.lang-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 30;
+  display: flex;
+  gap: 2px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 3px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--ink);
+}
+
+.lang-btn.is-active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
 /* ------------------------------------------------ Animated Background --- */
 .bg-animated-mesh {
   position: fixed;
