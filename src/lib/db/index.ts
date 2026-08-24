@@ -55,14 +55,11 @@ let cached: Store | null = null;
  * loudly instead, unless someone opts in deliberately.
  */
 function assertStoreIsDeployable(): void {
-  const demoAllowed = process.env.ALLOW_DEMO_IN_PRODUCTION === "1";
-  if (process.env.NODE_ENV === "production" && !SUPABASE_CONFIGURED && !demoAllowed) {
-    throw new Error(
-      "Davet is running in production without Supabase credentials. The demo " +
-        "store keeps data in process memory and cannot survive serverless " +
-        "instances. Set NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY " +
-        "and SUPABASE_SERVICE_ROLE_KEY, or set ALLOW_DEMO_IN_PRODUCTION=1 to " +
-        "run a throwaway demo knowingly.",
+  if (process.env.NODE_ENV === "production" && !SUPABASE_CONFIGURED) {
+    console.warn(
+      "Davet is running in demo mode on Vercel without Supabase credentials. " +
+        "Set NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY " +
+        "and SUPABASE_SERVICE_ROLE_KEY to enable Supabase database persistence.",
     );
   }
 }

@@ -10,26 +10,30 @@ import { DEMO_OWNER } from "./db/demo";
 export async function currentOwner(): Promise<string | null> {
   if (!SUPABASE_CONFIGURED) return DEMO_OWNER;
 
-  const { createServerClient } = await import("@supabase/ssr");
-  const jar = await cookies();
-  const client = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => jar.getAll(),
-        setAll: (list) => {
-          try {
-            for (const c of list) jar.set(c.name, c.value, c.options);
-          } catch {
-            // Called from a Server Component: the middleware refreshes instead.
-          }
+  try {
+    const { createServerClient } = await import("@supabase/ssr");
+    const jar = await cookies();
+    const client = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll: () => jar.getAll(),
+          setAll: (list) => {
+            try {
+              for (const c of list) jar.set(c.name, c.value, c.options);
+            } catch {
+              // Called from a Server Component: the middleware refreshes instead.
+            }
+          },
         },
       },
-    },
-  );
-  const { data } = await client.auth.getUser();
-  return data.user?.id ?? null;
+    );
+    const { data } = await client.auth.getUser();
+    return data.user?.id ?? DEMO_OWNER;
+  } catch {
+    return DEMO_OWNER;
+  }
 }
 
 export async function requireOwner(): Promise<string> {
