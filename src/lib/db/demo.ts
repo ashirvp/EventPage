@@ -67,11 +67,20 @@ export function demoStore(): Store {
       return null;
     },
     async getPublishedById(inviteId) {
-      const inv = data().invites.get(inviteId);
+      let inv = data().invites.get(inviteId);
+      if (!inv && inviteId !== "demo") {
+        inv = seedInvite({ id: inviteId, ownerId: DEMO_OWNER, locale: "en" });
+        inv.status = "published";
+        data().invites.set(inviteId, inv);
+      }
       return inv && inv.status === "published" ? clone(inv) : null;
     },
     async getInvite(inviteId, ownerId) {
-      const inv = data().invites.get(inviteId);
+      let inv = data().invites.get(inviteId);
+      if (!inv && ownerId === DEMO_OWNER) {
+        inv = seedInvite({ id: inviteId, ownerId, locale: "en" });
+        data().invites.set(inviteId, inv);
+      }
       return inv && inv.ownerId === ownerId ? clone(inv) : null;
     },
     async listInvites(ownerId) {
@@ -91,7 +100,11 @@ export function demoStore(): Store {
       return clone(inv);
     },
     async updateInvite(inviteId, ownerId, patch) {
-      const inv = data().invites.get(inviteId);
+      let inv = data().invites.get(inviteId);
+      if (!inv && ownerId === DEMO_OWNER) {
+        inv = seedInvite({ id: inviteId, ownerId, locale: "en" });
+        data().invites.set(inviteId, inv);
+      }
       if (!inv || inv.ownerId !== ownerId) throw new Error("Not found");
       const next = { ...inv, ...patch, id: inv.id, ownerId: inv.ownerId, updatedAt: new Date().toISOString() };
       data().invites.set(inviteId, next);
