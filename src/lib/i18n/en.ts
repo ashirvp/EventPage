@@ -1,0 +1,128 @@
+export const en = {
+  // Invitation chrome
+  nav: { home: "Home", couple: "Couple", events: "Events", wishes: "Wishes", info: "Info" },
+  opener: {
+    preparing: "Preparing your invitation",
+    open: "Open Invitation",
+    tapToOpen: "Tap to open",
+    scratch: "Scratch the foil to uncover the day",
+    revealed: "Swipe up to continue",
+  },
+  hero: { theWeddingOf: "The Wedding Of", seeYouIn: "See you in" },
+  countdown: { days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" },
+  families: { heading: "Together With Their Families", groom: "The Groom", bride: "The Bride" },
+  verses: {
+    heading: { islamic: "Words From The Qur'an", christian: "Words From Scripture" },
+    source: { islamic: "Qur'an", christian: "Bible" },
+    sub: "On love, companionship and mercy",
+  },
+  events: {
+    heading: "Wedding Events",
+    sub: "We would be honoured by your presence",
+    venue: "The Venue",
+    viewLocation: "View Location",
+  },
+  rsvp: {
+    heading: "Kindly RSVP",
+    respondBy: "Please respond by",
+    yourName: "Your Name",
+    attending: "Joyfully attending",
+    notAttending: "Regretfully, no",
+    guests: "Guests (including you)",
+    message: "A note for the couple (optional)",
+    send: "Send RSVP",
+    sending: "Sending",
+    thanks: "Thank you — your reply has reached the couple.",
+    failed: "That didn't send. Please try again.",
+    privacy: "Your name and reply are shared only with the couple, and deleted after the wedding.",
+  },
+  wishes: {
+    heading: "Wishes & Blessings",
+    sub: "Leave the couple a message below",
+    yourName: "Your Name",
+    yourWish: "Your Wish",
+    send: "Send Blessing",
+    pending: "Thank you — your message will appear once the couple approves it.",
+  },
+  info: { heading: "Things to Know", weather: "Weather", dress: "Dress Code", parking: "Parking" },
+  footer: { withLove: "With love & du'a" },
+  music: { play: "Play music", pause: "Pause music" },
+
+  // Builder
+  b: {
+    appTagline: "Wedding invitations, without the web developer.",
+    dashboard: "Your invitations",
+    newInvite: "New invitation",
+    edit: "Edit",
+    view: "View",
+    responses: "Responses",
+    draft: "Draft",
+    published: "Published",
+    saving: "Saving",
+    saved: "All changes saved",
+    preview: "Preview",
+    closePreview: "Close preview",
+    publish: "Publish",
+    published_: "Published",
+    unpublish: "Unpublish",
+    copyLink: "Copy link",
+    copied: "Copied",
+    shareWhatsapp: "Share on WhatsApp",
+    missing: "Before publishing",
+    notAdded: "not added",
+    sections: {
+      couple: "Couple",
+      style: "Style",
+      events: "Events",
+      families: "Families",
+      verses: "Verses",
+      rsvp: "RSVP",
+      wishes: "Wishes",
+      info: "Things to know",
+    },
+    f: {
+      partnerA: "First name",
+      partnerB: "Partner's name",
+      language: "Invitation language",
+      timezone: "Time zone",
+      theme: "Theme",
+      opener: "How it opens",
+      slug: "Web address",
+      eventName: "Event",
+      venueName: "Venue",
+      venueAddress: "Address",
+      mapsUrl: "Google Maps link",
+      startsAt: "Date and time",
+      note: "Note",
+      side: "Side",
+      personName: "Name",
+      parents: "Parents",
+      grandparents: "Grandparents",
+      rsvpDeadline: "Respond by",
+      weather: "Weather",
+      dress: "Dress code",
+      parking: "Parking",
+      addEvent: "Add event",
+      addFamily: "Add family",
+      addVerse: "Add verse",
+      remove: "Remove",
+      tradition: "Tradition",
+      editAddress: "Edit address",
+      addressFollowsNames: "Follows the names until you edit it",
+      addressFrozen: "Fixed — guests may already have this link",
+      followsCouple: "Follows the couple\u2019s name until you change it",
+      showSection: "Show this section",
+    },
+  },
+} as const;
+
+/**
+ * `as const` gives the English catalogue literal types, which would force every
+ * other catalogue to repeat English word for word. Widen strings so the shape
+ * is enforced but the wording is free.
+ */
+type Widen<T> = T extends string
+  ? string
+  : { -readonly [K in keyof T]: Widen<T[K]> };
+
+export type Messages = Widen<typeof en>;
