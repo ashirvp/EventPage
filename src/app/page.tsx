@@ -1,17 +1,52 @@
+"use client";
+import { useState } from "react";
 import { THEME_LIST } from "@/lib/themes";
 import { PRODUCT_NAME } from "@/lib/config";
 import { SUPABASE_CONFIGURED } from "@/lib/db";
 import { NewInvite } from "@/components/builder/NewInvite";
+import { LOCALES, type Locale } from "@/lib/types";
+import { LOCALE_NAMES } from "@/lib/i18n";
 
 export default function Landing() {
+  const [selectedLocale, setSelectedLocale] = useState<Locale>("en");
+
   return (
     <main className="page">
+      {/* Top Header Bar with Badge on Left and Small Language Selector Pill on Top Right */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+        <div className="hero-badge" style={{ marginBottom: 0 }}>
+          ✨ Digital Wedding Invitations
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: ".4rem" }}>
+          <span className="note" style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".06em" }}>Language:</span>
+          <select
+            className="select"
+            style={{
+              width: "auto",
+              padding: ".2rem .6rem",
+              fontSize: ".8rem",
+              borderRadius: "999px",
+              minHeight: "34px",
+              height: "34px",
+              borderColor: "var(--app-line)",
+              background: "var(--app-surface)",
+              cursor: "pointer",
+            }}
+            value={selectedLocale}
+            onChange={(e) => setSelectedLocale(e.target.value as Locale)}
+          >
+            {LOCALES.map((l) => (
+              <option key={l} value={l}>
+                {LOCALE_NAMES[l]}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       <div className="hero-grid">
         <div>
-          <div className="hero-badge">
-            ✨ Digital Wedding Invitations
-          </div>
-
           <h1>
             Wedding invitations,
             <br />
@@ -23,10 +58,10 @@ export default function Landing() {
             breathtaking digital invitation in English, German or Turkish — ready to send in one link.
           </p>
 
-          <div className="hero-actions-row">
-            <NewInvite label="Start invitation" flat />
+          <div className="row" style={{ marginTop: "2rem" }}>
+            <NewInvite label="Start an invitation" showSelect={false} initialLocale={selectedLocale} />
             <a className="cta cta-ghost" href="/amir-leyla">
-              Example →
+              See live example →
             </a>
           </div>
         </div>

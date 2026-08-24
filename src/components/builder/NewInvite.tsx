@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LOCALE_NAMES } from "@/lib/i18n";
 import { LOCALES, type Locale } from "@/lib/types";
 
@@ -8,14 +8,20 @@ export function NewInvite({
   showSelect = true,
   className = "cta",
   flat = false,
+  initialLocale = "en",
 }: {
   label: string;
   showSelect?: boolean;
   className?: string;
   flat?: boolean;
+  initialLocale?: Locale;
 }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>(initialLocale);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setLocale(initialLocale);
+  }, [initialLocale]);
 
   async function create() {
     setBusy(true);
