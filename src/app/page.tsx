@@ -1,79 +1,94 @@
 "use client";
 import { useState } from "react";
 import { THEME_LIST } from "@/lib/themes";
-import { PRODUCT_NAME } from "@/lib/config";
 import { SUPABASE_CONFIGURED } from "@/lib/db";
 import { NewInvite } from "@/components/builder/NewInvite";
 import { LOCALES, type Locale } from "@/lib/types";
-import { LOCALE_NAMES } from "@/lib/i18n";
+import { LOCALE_NAMES, messages } from "@/lib/i18n";
 
 export default function Landing() {
   const [selectedLocale, setSelectedLocale] = useState<Locale>("en");
+  const m = messages(selectedLocale);
+  const l = m.landing;
 
   return (
     <main className="page">
-      {/* Top Header Bar with Badge on Left and Small Language Selector Pill on Top Right */}
+      {/* Top Header Bar with Badge on Left and Language Select Dropdown on Top Right */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
         <div className="hero-badge" style={{ marginBottom: 0 }}>
-          ✨ Digital Wedding Invitations
+          {l.badge}
         </div>
 
-        <div className="landing-lang-switcher" aria-label="Select language">
-          {LOCALES.map((l) => (
-            <button
-              key={l}
-              type="button"
-              className={`lang-btn ${selectedLocale === l ? "is-active" : ""}`}
-              onClick={() => setSelectedLocale(l)}
-            >
-              {l.toUpperCase()}
-            </button>
-          ))}
+        <div style={{ display: "flex", alignItems: "center", gap: ".45rem" }}>
+          <span className="note" style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".06em" }}>Language:</span>
+          <select
+            className="select"
+            style={{
+              width: "auto",
+              padding: ".25rem .75rem",
+              fontSize: ".82rem",
+              borderRadius: "999px",
+              minHeight: "36px",
+              height: "36px",
+              borderColor: "var(--app-line)",
+              background: "var(--app-surface)",
+              color: "var(--app-ink)",
+              cursor: "pointer",
+              fontWeight: 500,
+            }}
+            value={selectedLocale}
+            onChange={(e) => setSelectedLocale(e.target.value as Locale)}
+          >
+            {LOCALES.map((loc) => (
+              <option key={loc} value={loc}>
+                {LOCALE_NAMES[loc]}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div className="hero-grid">
         <div>
           <h1>
-            Wedding invitations,
+            {l.h1Line1}
             <br />
-            <span className="gilt-animated">crafted with elegance.</span>
+            <span className="gilt-animated">{l.h1Line2}</span>
           </h1>
 
           <p className="lede" style={{ fontSize: "1.15rem", lineHeight: "1.7" }}>
-            Enter your names, your events and your verses. {PRODUCT_NAME} renders a
-            breathtaking digital invitation in English, German or Turkish — ready to send in one link.
+            {l.lede}
           </p>
 
           <div className="row" style={{ marginTop: "2rem" }}>
-            <NewInvite label="Start an invitation" showSelect={false} initialLocale={selectedLocale} />
+            <NewInvite label={l.startBtn} showSelect={false} initialLocale={selectedLocale} />
             <a className="cta cta-ghost" href="/amir-leyla">
-              See live example →
+              {l.seeExample}
             </a>
           </div>
         </div>
 
         {/* Animated Digital Card Mockup on Right Side */}
         <div className="hero-card-preview">
-          <span className="hero-card-tag">Live Card Mockup</span>
+          <span className="hero-card-tag">{l.mockupTag}</span>
           <p className="eyebrow" style={{ fontSize: ".7rem", letterSpacing: ".2em", marginTop: ".6rem" }}>
-            The Wedding Of
+            {m.hero.theWeddingOf}
           </p>
           <h2 className="display gilt-animated" style={{ fontSize: "2.2rem", marginBlock: ".4rem" }}>
-            Amir &amp; Leyla
+            {l.mockupHeading}
           </h2>
           <div style={{ color: "var(--app-accent)", marginBlock: ".6rem", fontSize: "1.1rem" }}>
             ❖ ❖ ❖
           </div>
-          <p style={{ fontSize: ".95rem", fontWeight: 500 }}>Saturday, October 24, 2026</p>
-          <p className="note" style={{ marginTop: ".25rem" }}>Nikah &amp; Reception · Berlin, Germany</p>
+          <p style={{ fontSize: ".95rem", fontWeight: 500 }}>{l.mockupDate}</p>
+          <p className="note" style={{ marginTop: ".25rem" }}>{l.mockupVenue}</p>
 
           <div style={{ marginTop: "1.4rem", display: "flex", gap: ".5rem", justifyContent: "center", flexWrap: "wrap" }}>
             <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
-              ✓ Instant RSVP
+              {l.mockupRsvp}
             </span>
             <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
-              💬 Wishes Wall
+              {l.mockupWishes}
             </span>
           </div>
         </div>
@@ -82,22 +97,22 @@ export default function Landing() {
       {/* Moving Marquee Ticker Banner */}
       <div className="marquee-container">
         <div className="marquee-content">
-          <div className="marquee-item">✨ Nikah &amp; Walima Presets</div>
-          <div className="marquee-item">❖ 8 Artisan Styles</div>
-          <div className="marquee-item">🌐 English • Deutsch • Türkçe</div>
-          <div className="marquee-item">💌 Instant RSVPs &amp; Wishes</div>
-          <div className="marquee-item">⚡ Zero Developer Needed</div>
-          <div className="marquee-item">✨ Nikah &amp; Walima Presets</div>
-          <div className="marquee-item">❖ 8 Artisan Styles</div>
-          <div className="marquee-item">🌐 English • Deutsch • Türkçe</div>
-          <div className="marquee-item">💌 Instant RSVPs &amp; Wishes</div>
-          <div className="marquee-item">⚡ Zero Developer Needed</div>
+          <div className="marquee-item">{l.marquee.presets}</div>
+          <div className="marquee-item">{l.marquee.themes}</div>
+          <div className="marquee-item">{l.marquee.languages}</div>
+          <div className="marquee-item">{l.marquee.rsvps}</div>
+          <div className="marquee-item">{l.marquee.noDev}</div>
+          <div className="marquee-item">{l.marquee.presets}</div>
+          <div className="marquee-item">{l.marquee.themes}</div>
+          <div className="marquee-item">{l.marquee.languages}</div>
+          <div className="marquee-item">{l.marquee.rsvps}</div>
+          <div className="marquee-item">{l.marquee.noDev}</div>
         </div>
       </div>
 
       {!SUPABASE_CONFIGURED && (
         <p className="b-missing" style={{ marginTop: "1.5rem" }}>
-          Demo mode: no database configured, so invitations render live in memory. Add Supabase credentials to persist long-term.
+          {l.demoMode}
         </p>
       )}
 
@@ -106,49 +121,49 @@ export default function Landing() {
         <div className="glass-panel">
           <div className="feature-icon">🎨</div>
           <strong style={{ fontSize: "1rem", display: "block", marginBottom: ".4rem" }}>
-            8 Artisan Themes
+            {l.features.themesTitle}
           </strong>
           <span style={{ fontSize: ".84rem", color: "var(--app-muted)", lineHeight: "1.5" }}>
-            Switch palette, typography, surface texture, and ornaments effortlessly.
+            {l.features.themesDesc}
           </span>
         </div>
 
         <div className="glass-panel">
           <div className="feature-icon">🌐</div>
           <strong style={{ fontSize: "1rem", display: "block", marginBottom: ".4rem" }}>
-            3 Languages
+            {l.features.langTitle}
           </strong>
           <span style={{ fontSize: ".84rem", color: "var(--app-muted)", lineHeight: "1.5" }}>
-            English, German, and Turkish interface translations built into every layout.
+            {l.features.langDesc}
           </span>
         </div>
 
         <div className="glass-panel">
           <div className="feature-icon">💌</div>
           <strong style={{ fontSize: "1rem", display: "block", marginBottom: ".4rem" }}>
-            RSVPs &amp; Wishes
+            {l.features.rsvpTitle}
           </strong>
           <span style={{ fontSize: ".84rem", color: "var(--app-muted)", lineHeight: "1.5" }}>
-            Collect guest attendance, dietary notes, and moderated wedding wishes directly.
+            {l.features.rsvpDesc}
           </span>
         </div>
 
         <div className="glass-panel">
           <div className="feature-icon">🔗</div>
           <strong style={{ fontSize: "1rem", display: "block", marginBottom: ".4rem" }}>
-            Instant Share Link
+            {l.features.shareTitle}
           </strong>
           <span style={{ fontSize: ".84rem", color: "var(--app-muted)", lineHeight: "1.5" }}>
-            Optimized WhatsApp preview cards and one-click URL sharing for all guests.
+            {l.features.shareDesc}
           </span>
         </div>
       </div>
 
       {/* Theme Showcase Section */}
       <div style={{ marginTop: "5rem" }}>
-        <h2>Eight Artisan Styles</h2>
+        <h2>{l.showcaseTitle}</h2>
         <p className="lede">
-          Each style re-imagines the palette, typography, and ornament — preserving your words beautifully.
+          {l.showcaseLede}
         </p>
 
         <div className="showcase">
@@ -203,7 +218,7 @@ export default function Landing() {
                       flexShrink: 0,
                     }}
                   >
-                    {t.dark ? "Dark" : "Light"}
+                    {t.dark ? l.dark : l.light}
                   </span>
                 </div>
                 <span style={{ color: t.palette.muted, fontSize: ".78rem" }}>{t.blurb}</span>
