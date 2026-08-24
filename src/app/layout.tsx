@@ -56,10 +56,15 @@ export const metadata: Metadata = {
   description: "Wedding invitations, without the web developer.",
 };
 
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={FONTS}>
-      <body className="app">{children}</body>
+      <body className="app">
+        <AnimatedBackground />
+        {children}
+      </body>
     </html>
   );
 }
