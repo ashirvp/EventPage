@@ -19,33 +19,31 @@ export default function Landing() {
           {l.badge}
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: ".45rem" }}>
-          <span className="note" style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".06em" }}>Language:</span>
-          <select
-            className="select"
-            style={{
-              width: "auto",
-              padding: ".25rem .75rem",
-              fontSize: ".82rem",
-              borderRadius: "999px",
-              minHeight: "36px",
-              height: "36px",
-              borderColor: "var(--app-line)",
-              background: "var(--app-surface)",
-              color: "var(--app-ink)",
-              cursor: "pointer",
-              fontWeight: 500,
-            }}
-            value={selectedLocale}
-            onChange={(e) => setSelectedLocale(e.target.value as Locale)}
-          >
-            {LOCALES.map((loc) => (
-              <option key={loc} value={loc}>
-                {LOCALE_NAMES[loc]}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select
+          className="select"
+          style={{
+            width: "auto",
+            padding: ".2rem .75rem",
+            fontSize: ".8rem",
+            borderRadius: "999px",
+            minHeight: "34px",
+            height: "34px",
+            borderColor: "var(--app-line)",
+            background: "var(--app-surface)",
+            color: "var(--app-ink)",
+            cursor: "pointer",
+            fontWeight: 600,
+            letterSpacing: ".06em",
+          }}
+          value={selectedLocale}
+          onChange={(e) => setSelectedLocale(e.target.value as Locale)}
+        >
+          {LOCALES.map((loc) => (
+            <option key={loc} value={loc}>
+              {loc.toUpperCase()}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="hero-grid">
