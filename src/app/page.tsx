@@ -3,6 +3,7 @@ import { useState } from "react";
 import { THEME_LIST } from "@/lib/themes";
 import { SUPABASE_CONFIGURED } from "@/lib/db";
 import { NewInvite } from "@/components/builder/NewInvite";
+import { Reveal } from "@/components/invite/Reveal";
 import { LOCALES, type Locale } from "@/lib/types";
 import { LOCALE_NAMES, messages } from "@/lib/i18n";
 
@@ -47,7 +48,7 @@ export default function Landing() {
       </div>
 
       <div className="hero-grid">
-        <div>
+        <Reveal className="reveal-slide-left">
           <h1>
             {l.h1Line1}
             <br />
@@ -64,49 +65,53 @@ export default function Landing() {
               {l.seeExample}
             </a>
           </div>
-        </div>
+        </Reveal>
 
         {/* Animated Digital Card Mockup on Right Side */}
-        <div className="hero-card-preview">
-          <span className="hero-card-tag">{l.mockupTag}</span>
-          <p className="eyebrow" style={{ fontSize: ".7rem", letterSpacing: ".2em", marginTop: ".6rem" }}>
-            {m.hero.theWeddingOf}
-          </p>
-          <h2 className="display gilt-animated" style={{ fontSize: "2.2rem", marginBlock: ".4rem" }}>
-            {l.mockupHeading}
-          </h2>
-          <div style={{ color: "var(--app-accent)", marginBlock: ".6rem", fontSize: "1.1rem" }}>
-            ❖ ❖ ❖
-          </div>
-          <p style={{ fontSize: ".95rem", fontWeight: 500 }}>{l.mockupDate}</p>
-          <p className="note" style={{ marginTop: ".25rem" }}>{l.mockupVenue}</p>
+        <Reveal className="reveal-slide-right">
+          <div className="hero-card-preview">
+            <span className="hero-card-tag">{l.mockupTag}</span>
+            <p className="eyebrow" style={{ fontSize: ".7rem", letterSpacing: ".2em", marginTop: ".6rem" }}>
+              {m.hero.theWeddingOf}
+            </p>
+            <h2 className="display gilt-animated" style={{ fontSize: "2.2rem", marginBlock: ".4rem" }}>
+              {l.mockupHeading}
+            </h2>
+            <div style={{ color: "var(--app-accent)", marginBlock: ".6rem", fontSize: "1.1rem" }}>
+              ❖ ❖ ❖
+            </div>
+            <p style={{ fontSize: ".95rem", fontWeight: 500 }}>{l.mockupDate}</p>
+            <p className="note" style={{ marginTop: ".25rem" }}>{l.mockupVenue}</p>
 
-          <div style={{ marginTop: "1.4rem", display: "flex", gap: ".5rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
-              {l.mockupRsvp}
-            </span>
-            <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
-              {l.mockupWishes}
-            </span>
+            <div style={{ marginTop: "1.4rem", display: "flex", gap: ".5rem", justifyContent: "center", flexWrap: "wrap" }}>
+              <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
+                {l.mockupRsvp}
+              </span>
+              <span className="pill" style={{ background: "color-mix(in srgb, var(--app-accent) 12%, transparent)", borderColor: "color-mix(in srgb, var(--app-accent) 30%, transparent)", color: "var(--app-accent)" }}>
+                {l.mockupWishes}
+              </span>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       {/* Moving Marquee Ticker Banner */}
-      <div className="marquee-container">
-        <div className="marquee-content">
-          <div className="marquee-item">{l.marquee.presets}</div>
-          <div className="marquee-item">{l.marquee.themes}</div>
-          <div className="marquee-item">{l.marquee.languages}</div>
-          <div className="marquee-item">{l.marquee.rsvps}</div>
-          <div className="marquee-item">{l.marquee.noDev}</div>
-          <div className="marquee-item">{l.marquee.presets}</div>
-          <div className="marquee-item">{l.marquee.themes}</div>
-          <div className="marquee-item">{l.marquee.languages}</div>
-          <div className="marquee-item">{l.marquee.rsvps}</div>
-          <div className="marquee-item">{l.marquee.noDev}</div>
+      <Reveal>
+        <div className="marquee-container">
+          <div className="marquee-content">
+            <div className="marquee-item">{l.marquee.presets}</div>
+            <div className="marquee-item">{l.marquee.themes}</div>
+            <div className="marquee-item">{l.marquee.languages}</div>
+            <div className="marquee-item">{l.marquee.rsvps}</div>
+            <div className="marquee-item">{l.marquee.noDev}</div>
+            <div className="marquee-item">{l.marquee.presets}</div>
+            <div className="marquee-item">{l.marquee.themes}</div>
+            <div className="marquee-item">{l.marquee.languages}</div>
+            <div className="marquee-item">{l.marquee.rsvps}</div>
+            <div className="marquee-item">{l.marquee.noDev}</div>
+          </div>
         </div>
-      </div>
+      </Reveal>
 
       {!SUPABASE_CONFIGURED && (
         <p className="b-missing" style={{ marginTop: "1.5rem" }}>
@@ -115,7 +120,7 @@ export default function Landing() {
       )}
 
       {/* Feature Highlights Grid */}
-      <div className="features-grid">
+      <Reveal className="features-grid reveal-stagger">
         <div className="glass-panel">
           <div className="feature-icon">🎨</div>
           <strong style={{ fontSize: "1rem", display: "block", marginBottom: ".4rem" }}>
@@ -155,16 +160,18 @@ export default function Landing() {
             {l.features.shareDesc}
           </span>
         </div>
-      </div>
+      </Reveal>
 
       {/* Theme Showcase Section */}
       <div style={{ marginTop: "5rem" }}>
-        <h2>{l.showcaseTitle}</h2>
-        <p className="lede">
-          {l.showcaseLede}
-        </p>
+        <Reveal>
+          <h2>{l.showcaseTitle}</h2>
+          <p className="lede">
+            {l.showcaseLede}
+          </p>
+        </Reveal>
 
-        <div className="showcase">
+        <Reveal className="showcase reveal-stagger">
           {THEME_LIST.map((t) => (
             <div
               className="showcase-card"
@@ -274,7 +281,7 @@ export default function Landing() {
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </main>
   );
