@@ -110,10 +110,22 @@ export default function Landing() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    gap: ".4rem",
                     marginBottom: ".3rem",
                   }}
                 >
-                  <strong style={{ color: t.palette.ink }}>{t.name}</strong>
+                  <strong
+                    style={{
+                      color: t.palette.ink,
+                      fontSize: ".9rem",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      minWidth: 0,
+                    }}
+                  >
+                    {t.name}
+                  </strong>
                   <span
                     className="pill"
                     style={{
@@ -121,6 +133,7 @@ export default function Landing() {
                       padding: ".1rem .4rem",
                       borderColor: t.palette.rule,
                       color: t.palette.muted,
+                      flexShrink: 0,
                     }}
                   >
                     {t.dark ? "Dark" : "Light"}

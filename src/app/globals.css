@@ -377,7 +377,7 @@ body.app {
 .table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .table th, .table td { text-align: left; padding: .65rem .5rem; border-bottom: 1px solid var(--app-line); }
 .table th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--app-muted); }
-.showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 1rem; margin-top: 2rem; }
+.showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 1.15rem; margin-top: 2rem; }
 .showcase-card { border: 1px solid var(--app-line); border-radius: var(--radius); overflow: hidden; }
 .showcase-band { height: 6rem; display: grid; place-items: center; font-family: var(--f-cormorant), serif; font-size: 1.5rem; }
 .showcase-meta { padding: .7rem .8rem; }
