@@ -1,11 +1,17 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { LOCALE_NAMES } from "@/lib/i18n";
 import { LOCALES, type Locale } from "@/lib/types";
 
-export function NewInvite({ label }: { label: string }) {
-  const router = useRouter();
+export function NewInvite({
+  label,
+  showSelect = true,
+  className = "cta",
+}: {
+  label: string;
+  showSelect?: boolean;
+  className?: string;
+}) {
   const [locale, setLocale] = useState<Locale>("en");
   const [busy, setBusy] = useState(false);
 
@@ -18,8 +24,11 @@ export function NewInvite({ label }: { label: string }) {
         body: JSON.stringify({ locale }),
       });
       const data = await res.json();
-      if (data?.invite?.id) router.push(`/edit/${data.invite.id}`);
-      else setBusy(false);
+      if (data?.invite?.id) {
+        window.location.href = `/edit/${data.invite.id}`;
+      } else {
+        setBusy(false);
+      }
     } catch {
       setBusy(false);
     }
@@ -27,13 +36,24 @@ export function NewInvite({ label }: { label: string }) {
 
   return (
     <div className="row">
-      <select className="select" style={{ width: "auto" }} value={locale}
-              onChange={(e) => setLocale(e.target.value as Locale)}>
-        {LOCALES.map((l) => (
-          <option key={l} value={l}>{LOCALE_NAMES[l]}</option>
-        ))}
-      </select>
-      <button className="cta" onClick={create} disabled={busy}>{label}</button>
+      {showSelect && (
+        <select
+          className="select"
+          style={{ width: "auto" }}
+          value={locale}
+          onChange={(e) => setLocale(e.target.value as Locale)}
+        >
+          {LOCALES.map((l) => (
+            <option key={l} value={l}>
+              {LOCALE_NAMES[l]}
+            </option>
+          ))}
+        </select>
+      )}
+      <button className={className} onClick={create} disabled={busy}>
+        {busy ? "Starting…" : label}
+      </button>
     </div>
   );
 }
+

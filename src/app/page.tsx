@@ -1,6 +1,7 @@
 import { THEME_LIST } from "@/lib/themes";
 import { PRODUCT_NAME } from "@/lib/config";
 import { SUPABASE_CONFIGURED } from "@/lib/db";
+import { NewInvite } from "@/components/builder/NewInvite";
 
 export default function Landing() {
   return (
@@ -16,7 +17,7 @@ export default function Landing() {
       </p>
 
       <div className="row" style={{ marginTop: "2rem" }}>
-        <a className="cta" href="/dashboard">Start an invitation</a>
+        <NewInvite label="Start an invitation" />
         <a className="cta cta-ghost" href="/amir-leyla">See an example</a>
       </div>
 
